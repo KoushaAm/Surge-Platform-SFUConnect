@@ -6,6 +6,8 @@ response = requests.get(url)
 clubs_list = []
 
 
+jobs = {[]}
+
 if response.status_code == 200:
     soup = BeautifulSoup(response.text, 'html.parser')
 
