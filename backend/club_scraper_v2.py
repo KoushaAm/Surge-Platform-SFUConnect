@@ -16,9 +16,15 @@ import uuid
 import json
 
 
+from transformers import pipeline
+
+pipe = pipeline(model="facebook/bart-large-mnli")
+
 url = "https://go.sfss.ca/clubs/list"
 response = requests.get(url)
 
+
+candidate_labels=["sports", "arts", "academic", "social", "cultural", "political", "religious", "service", "special interest", "student government", "other"]
 
 soup = BeautifulSoup(response.content, 'html.parser')
 table = soup.find("table", id="club_listing")
@@ -57,11 +63,12 @@ for row in table.find_all("tr"):
             "id": generate_unique_id(),
             "title": title,
             "description": description,
+            "category": "",
             "info_url": info_url,
             "logo_url": logo_url
         }
 
-        jobs[job["id"]] = job
+        jobs[job["title"]] = job
 
 # write to json file
 with open('./backend/clubs.json', 'w') as outfile:

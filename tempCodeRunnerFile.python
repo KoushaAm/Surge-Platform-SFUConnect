@@ -1,0 +1,64 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Given parameters
+U = 1.0  # Incident current velocity (m/s)
+a = 40.0  # Radius of the circular cylinder (m)
+x = np.linspace(-100, 100, 400)  # X-coordinates
+y = np.linspace(-100, 100, 400)  # Y-coordinates
+
+# Create a grid of x, y coordinates
+X, Y = np.meshgrid(x, y)
+
+# Calculate the streamline function for each point
+V = U * (X - a) * np.sin(np.arctan2(Y, X - a))
+
+# Create the color contour plot
+plt.figure(figsize=(8, 6))
+contours = plt.contour(X, Y, V, 20, colors='k')
+plt.clabel(contours, inline=True, fontsize=8)
+
+# Add a circle to represent the cylinder
+circle = plt.Circle((0, 0), a, fill=False, color='blue')
+plt.gca().add_patch(circle)
+
+# Set plot labels and title
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Streamlines around a Circular Cylinder')
+
+# Set the aspect ratio to equal
+plt.axis('equal')
+
+# Show the plot
+plt.grid()
+plt.show()
+
+
+
+# 1a
+import numpy as np
+from scipy.optimize import minimize
+
+# Given parameters
+U = 1.0  # Incident current velocity (m/s)
+a = 40.0  # Radius of the circular cylinder (m)
+
+# Define the velocity function
+def velocity_function(r):
+    return U * (r - a**2 / r)
+
+# Define the objective function (negative velocity to find maximum)
+def objective(r):
+    return -velocity_function(r)
+
+# Initial guess for the optimizer
+initial_guess = [a + 1.0]
+
+# Optimize the objective function to find the maximum velocity
+result = minimize(objective, initial_guess, bounds=[(a, None)])
+
+# Extract the maximum velocity from the optimization result
+max_velocity = -result.fun[0]
+
+print("Maximum Velocity (Numerical):", max_velocity, "m/s")
