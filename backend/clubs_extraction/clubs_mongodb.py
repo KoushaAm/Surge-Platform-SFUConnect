@@ -1,6 +1,7 @@
 import json
 
-# this class reformats the clubs.json to be comaptible to MongoDB's template
+# this class reformats the clubs.json to be comaptible to MongoDB's templat
+# the output is saved in mongodb_clubs.json
 def convert_to_mongodb_format(input_filename, output_filename):
 
     input_filename = './backend/clubs.json'
