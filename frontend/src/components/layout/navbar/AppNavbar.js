@@ -13,7 +13,7 @@ const Navbar = () => {
       <ul>
         {links.map((link) => {
           return (
-            <li key={link.text}>
+            <li key={link.text} style={{ color: "blue", textDecorationLine: "underline" }}>
               <NavLink to={link.path}>{link.text}</NavLink>
             </li>
           );
