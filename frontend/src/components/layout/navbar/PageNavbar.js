@@ -7,6 +7,10 @@ const PageNavbar = () => {
       path: "/",
     },
     {
+      text: "About",
+      path: "/about",
+    },
+    {
       text: "Login",
       path: "/login",
     },
@@ -21,7 +25,10 @@ const PageNavbar = () => {
       <ul>
         {links.map((link) => {
           return (
-            <li key={link.text} style={{ color: "blue", textDecorationLine: "underline" }}>
+            <li
+              key={link.text}
+              style={{ color: "blue", textDecorationLine: "underline" }}
+            >
               <NavLink to={link.path}>{link.text}</NavLink>
             </li>
           );
