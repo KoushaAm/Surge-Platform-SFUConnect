@@ -1,4 +1,4 @@
-const Home = () => {
+const Login = () => {
     return (
       <>
         <h1>Login content</h1>
@@ -6,5 +6,5 @@ const Home = () => {
     );
   };
   
-  export default Home;
+  export default Login;
   
