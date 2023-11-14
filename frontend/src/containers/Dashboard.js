@@ -1,9 +1,9 @@
-const Home = () => {
+const Dashboard = () => {
   return (
     <div>
-      <h1> myConnect Dashboard </h1>
+      <h1> dashboard content </h1>
     </div>
   );
 };
 
-export default Home;
+export default Dashboard;
