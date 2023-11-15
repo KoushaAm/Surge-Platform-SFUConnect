@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,8 +22,53 @@ MongoClient.connect(URI, (error, client) => {
 });
 
 
+app.post('/clubs/search', async (req, res) => {
+  const searchTerm = req.body.term; 
+
+  if (!searchTerm) {
+    return res.status(400).json({ error: 'Search term is required' });
+  }
+
+  try {
+    if (!client || !isConnected) {
+      client = new MongoClient(URI);
+      await client.connect();
+    }
+
+    const result = await searchClubs(client, searchTerm);
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// search by category
+app.get('/clubs/search/:category', async (req, res) => {
+  candidate_labels_set = ["Sports", "Academic", "Cultural", "Community Service", "Religious", "Science & Technology", "Arts", "Special Interest", "Student Government"]
+
+  const searchTerm = req.params.category; 
+
+  if (!searchTerm) {
+    return res.status(400).json({ error: 'Search term is required' });
+  }
+
+  try {
+    if (!client || !isConnected) {
+      client = new MongoClient(URI);
+      await client.connect();
+    }
+
+    const result = await searchClubs(client, searchTerm, categoryOnly=true);
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
+// search by title, category and description
 app.get('/clubs/search', async (req, res) => {
   const searchTerm = req.query.term; 
 
@@ -46,21 +90,46 @@ app.get('/clubs/search', async (req, res) => {
   }
 });
 
-
-async function searchClubs(client, searchTerm) {
+// searches for clubs based on the search term (can be category only)
+async function searchClubs(client, searchTerm, categoryOnly=false) {
   const collection = client.db("Clubs").collection("clubs_info");
-
-  const query = {
-    $or: [
-      { title: { $regex: searchTerm, $options: 'i' } },
-      { description: { $regex: searchTerm, $options: 'i' } }, 
-      { category: { $regex: searchTerm, $options: 'i' } }
-    ]
-  };
+  if (!categoryOnly) {
+    const query = {
+      $or: [
+        { title: { $regex: searchTerm, $options: 'i' } },
+        { description: { $regex: searchTerm, $options: 'i' } }, 
+        { category: { $regex: searchTerm, $options: 'i' } }
+      ]
+    };
+  } else {
+    const query = {
+      $or: [
+        { category: { $regex: searchTerm, $options: 'i' } }
+      ]
+    };
+  }
 
   const result = await collection.find(query).toArray();
   return result;
 }
+
+
+
+// show all the clubs
+app.get('/clubs', async (req, res) => {
+  try {
+    if (!client || !isConnected) {
+      client = new MongoClient(URI);
+      await client.connect();
+    }
+
+    const result = await listClubs(client);
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 async function listClubs() {
@@ -90,11 +159,6 @@ async function listDatabases(client) {
   databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 }
 
-async function readDataFromMongoD(client) {
-  const collection = client.db("Clubs").collection("clubs_info");
-  const cursor = collection.find({});
-  await cursor.forEach(console.dir);
-}
 
 
 
