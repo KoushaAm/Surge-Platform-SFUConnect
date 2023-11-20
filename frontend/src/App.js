@@ -2,6 +2,8 @@
 import { Routes, Route } from "react-router-dom";
 import "../src/index.css";
 
+import { ExploreClubsProvider } from "./context/ExploreClubsContext";
+
 import PageLayout from "./components/layout/PageLayout";
 import AppLayout from "./components/layout/AppLayout";
 
@@ -26,23 +28,25 @@ function App() {
 
   return (
     <div>
-      {/* <h1 className="text-3xl font-bold underline">{message}</h1> */}
-      <Routes>
-        <Route element={<PageLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<Error />} />
-        </Route>
+      <ExploreClubsProvider>
+        {/* <h1 className="text-3xl font-bold underline">{message}</h1> */}
+        <Routes>
+          <Route element={<PageLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Error />} />
+          </Route>
 
-        <Route path="/app" element={<AppLayout />}>
-          <Route path="/app/profile" element={<UserProfile />} />
-          <Route path="/app/dashboard" element={<Dashboard />} />
-          <Route path="/app/myclubs" element={<MyClubs />} />
-          <Route path="/app/exploreclubs" element={<ExploreClubs />} />
-        </Route>
-      </Routes>
+          <Route path="/app" element={<AppLayout />}>
+            <Route path="/app/profile" element={<UserProfile />} />
+            <Route path="/app/dashboard" element={<Dashboard />} />
+            <Route path="/app/myclubs" element={<MyClubs />} />
+            <Route path="/app/exploreclubs" element={<ExploreClubs />} />
+          </Route>
+        </Routes>
+      </ExploreClubsProvider>
     </div>
   );
 }
