@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import myClubs from "../../../assets/icons/myClubs.svg";
 import allClubs from "../../../assets/icons/allClubs.svg";
-import logout from "../../../assets/icons/logout.svg"
+import logout from "../../../assets/icons/logout.svg";
 
 const Navbar = () => {
   const links = [
@@ -39,7 +39,7 @@ const Navbar = () => {
         </div>
         <NavLink
           to="/app/viewprofile"
-          className="text-custom-orange-primary font-karla text-base"
+          className="text-custom-orange-primary font-karla text-base hover:underline"
         >
           View Profile
         </NavLink>
@@ -48,8 +48,11 @@ const Navbar = () => {
       {/* Map main nav links */}
       <ul className="mt-7">
         {links.map((link) => (
-          <li key={link.text} className="flex items-center p-2">
-            <NavLink to={link.path} className="font-rubik text-lg text-custom-dark-gray flex items-center">
+          <li key={link.text} className="pt-1">
+            <NavLink
+              to={link.path}
+              className="p-1 flex items-center w-full font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
+            >
               {link.icon}
               {link.text}
             </NavLink>
@@ -58,9 +61,12 @@ const Navbar = () => {
       </ul>
 
       {/* Logout button */}
-      <div className="flex items-center p-2 border-t-2 mt-14">
-        <NavLink to="" className="font-rubik text-lg text-custom-dark-gray flex items-center">
-          <img src={logout} alt="Logout" className="mr-4" />
+      <div className="flex items-center border-t-2 pt-1 mt-14">
+        <NavLink
+          to=""
+          className="p-1 flex items-center w-full font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
+        >
+          <img src={logout} alt="Logout" className="mr-4 opacity-70" />
           Logout
         </NavLink>
       </div>
