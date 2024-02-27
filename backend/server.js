@@ -101,8 +101,9 @@ app.get('/clubs', async (req, res) => {
     }
 
     const result = await listClubs(client);
-    res.json(result);
-    
+    res.json([result]);
+    console.log("/clubs called")
+    return res;
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });
