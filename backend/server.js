@@ -5,7 +5,6 @@ const { MongoClient } = require("mongodb");
 
 const URI = 'mongodb+srv://demo:surge2023@orangedatabase.voevsap.mongodb.net/?retryWrites=true&w=majority'
 
-
 app.use(bodyParser.json());
 
 
@@ -64,6 +63,7 @@ app.get('/clubs/search', async (req, res) => {
 
     const result = await searchClubs(client, searchTerm);
     res.json(result);
+
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -101,7 +101,7 @@ app.get('/clubs', async (req, res) => {
     }
 
     const result = await listClubs(client);
-    res.json([result]);
+    res.json(result);
     console.log("/clubs called")
     return res;
   } catch (e) {
@@ -113,8 +113,8 @@ app.get('/clubs', async (req, res) => {
 
 async function listClubs() {
   const collection = client.db("Clubs").collection("clubs_info");
-  const cursor = collection.find({});
-  await cursor.forEach(console.dir);
+  const result = await collection.find({}).toArray();
+  return result;
 }
 
 
