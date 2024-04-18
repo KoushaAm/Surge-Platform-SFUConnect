@@ -130,6 +130,32 @@ async function listClubs() {
   return result;
 }
 
+// get a club by its id
+app.get('/clubs/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    if (!client || !isConnected) {
+      client = new MongoClient(URI);
+      await client.connect();
+    }
+
+    const result = await getClub(client, id);
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// get a club by its id
+async function getClub(client, id) {
+  const collection = client.db("Clubs").collection("clubs_info");
+  const result =
+    await collection.findOne({ _id: id });
+  return result;
+}
 
 // if backend is closed, close the connection to the database
 process.on('SIGINT', async () => {

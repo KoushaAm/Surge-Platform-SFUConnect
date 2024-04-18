@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ExploreClubs = () => {
   const [loading, setLoading] = useState(true);
@@ -31,22 +32,28 @@ const ExploreClubs = () => {
     setSearchResults(filteredResults);
   };
 
-  const handleChange = (event) => {
-    const searchTerm = event.target.value;
-    handleSearch(searchTerm);
-  };
+  
+
 
   return (
-    <div className="flex flex-col items-center justify-center pt-20 p-40">
+    <div className="flex flex-col items-center pt-20 p-40">
       <h2 className="text-2xl font-bold mb-9">All Clubs at SFU!</h2>
-      {loading && <p>Loading...</p>}
+      {/* loading animation */}
+      {loading && 
+        <div class="flex justify-center items-center h-screen">
+          <div class="rounded-full h-20 w-20 bg-orange-800 animate-ping"></div>
+        </div>}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {searchResults.map((club) => (
-          <div key={club._id} className="border rounded-md p-4">
-            <h2 className="text-lg font-semibold mb-2">{club.title}</h2>
-            <p className="text-gray-600 mb-2">{club.description}</p>
-            <p className="text-orange-500">{club.category.join(", ")}</p>
-          </div>
+          <Link
+          key={club._id}
+          to={`/app/clubs/${club._id}`}
+          className="border rounded-md p-4 hover:shadow-lg transition duration-300 ease-in-out"
+          >
+          <h2 className="text-lg font-semibold mb-2">{club.title}</h2>
+          <p className="text-gray-600 mb-2">{club.description}</p>
+          <p className="text-orange-500">{club.category.join(", ")}</p>
+        </Link>
         ))}
       </div>
     </div>

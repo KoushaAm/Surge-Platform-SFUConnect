@@ -27,7 +27,7 @@ const Navbar = () => {
   const name = "John Smith";
 
   return (
-    <nav className="w-64 p-7">
+    <nav className="w-64 p-7 mt-5">
       {/*profile picture, name, and view profile link */}
       <div className="flex flex-col items-center">
         <div
@@ -51,7 +51,7 @@ const Navbar = () => {
           <li key={link.text} className="pt-1">
             <NavLink
               to={link.path}
-              className="w-60 p-2 flex items-center w-full font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
+              className="w-60 p-2 flex items-center w-100 font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
             >
               {link.icon}
               {link.text}

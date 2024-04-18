@@ -1,7 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-// http://localhost:8000/clubs/category?term=categoryName
-// http://localhost:8000/clubs/search?term=searchTerm
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -13,13 +12,11 @@ function SearchBar() {
     try {
       setLoading(true);
       let url = "/clubs/";
-  
-      // Add search term to URL if it's not empty
-      if (searchTerm & selectedCategory) {
+
+      if (searchTerm && selectedCategory) {
         url += `search?term=${searchTerm}`;
       }
   
-      // Add category to URL if it's selected
       if (selectedCategory) {
         url += `category?term=${selectedCategory}`;
       }
@@ -43,7 +40,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-20 p-40">
+    <div className="flex flex-col pt-20 p-10">
       <div className="flex items-center mb-4">
         <input
           type="text"
@@ -56,7 +53,7 @@ function SearchBar() {
             }
           }}
           placeholder="Search Clubs"
-          className="px-3 py-2 border border-gray-300 rounded-md mr-2 focus:outline-none focus:border-orange-300"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md mr-2 focus:outline-none focus:border-orange-300"
         />
         <select
           value={selectedCategory}
@@ -75,20 +72,40 @@ function SearchBar() {
         >
           Search
         </button>
+        
       </div>
+          
       
-      {loading && <p>Loading...</p>}
 
+      {/* Show loading animation */}
+      {loading && 
+        <div className="flex justify-center items-center h-screen">
+          <div className="rounded-full h-20 w-20 bg-orange-500 animate-ping"></div>
+        </div>
+      }
+
+      {/* Show message when no search results */}
+      {!loading && searchResults.length === 0 && searchTerm && (
+        <p className="text-center text-gray-600">No clubs found. Try a different search term or category.</p>
+      )}
+
+      {/* Show message when search bar is empty */}
+      {!loading && searchResults.length === 0 && !searchTerm && (
+        <p className="text-center text-gray-600">Search for clubs by typing in the search bar above.</p>
+      )}
+
+      {/* Display search results */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {searchResults.map((club) => (
-          <div key={club._id} className="border rounded-md p-4">
+          <Link
+            key={club._id}
+            to={`/app/clubs/${club._id}`}
+            className="border rounded-md p-4 hover:shadow-lg transition duration-300 ease-in-out"
+          >
             <h2 className="text-lg font-semibold mb-2">{club.title}</h2>
             <p className="text-gray-600 mb-2">{club.description}</p>
-            {/* put comma in between categories */}
-            <p className="text-orange-500"> {club.category.join(", ")}</p>
-
-            {/* // <p className="text-blue-500">{club.category}</p> */}
-          </div>
+            <p className="text-orange-500">{club.category.join(", ")}</p>
+          </Link>
         ))}
       </div>
     </div>

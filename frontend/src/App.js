@@ -16,15 +16,10 @@ import UserProfile from "./containers/UserProfile";
 import Dashboard from "./containers/Dashboard";
 import MyClubs from "./containers/MyClubs";
 import ExploreClubs from "./containers/ExploreClubs";
+import ClubPage from "./containers/ClubPage";
 
 function App() {
-  //   // api call to backend to get the hello world message
-  //   const [message, setMessage] = useState("");
-  //   useEffect(() => {
-  //     fetch("/hello")
-  //       .then((res) => res.text())
-  //       .then((res) => setMessage(res));
-  //   }, []);
+
 
   return (
     <div>
@@ -44,6 +39,7 @@ function App() {
             <Route path="/app/dashboard" element={<Dashboard />} />
             <Route path="/app/myclubs" element={<MyClubs />} />
             <Route path="/app/exploreclubs" element={<ExploreClubs />} />
+            <Route path="/app/clubs/:id" element={<ClubPage />} />
           </Route>
         </Routes>
       </ExploreClubsProvider>
