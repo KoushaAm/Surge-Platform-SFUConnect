@@ -9,15 +9,6 @@ const Dashboard = () => {
   useEffect(() => {
     // Fetch all clubs data from backend here
     // replace the test_all_clubs_data and test_all_categories_data with frontend API calls
-
-    // const test_all_clubs_data = {
-    //   name: "Surge",
-    // };
-
-    // const test_all_categories_data = {
-    //   name: "Project",
-    // };
-
     fetch("/clubs")
       .then((response) => {
         if (!response.ok) {
@@ -31,13 +22,10 @@ const Dashboard = () => {
       })
       .catch((error) => console.log("Error:", error));
 
-    // getAllClubsHandler(test_all_clubs_data);
-    // getAllCategoriesHandler(test_all_categories_data);
   }, []);
 
   return (
-    <div>
-      <h1> dashboard content </h1>
+    <div className="">
       <SearchBar />
     </div>
   );

@@ -4,7 +4,7 @@ import AppNavbar from "./navbar/AppNavbar";
 
 const AppLayout = () => {
   return (
-    <div>
+    <div className="flex">
       <AppNavbar />
       <Outlet />
     </div>

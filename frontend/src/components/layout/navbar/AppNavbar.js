@@ -24,7 +24,7 @@ const Navbar = () => {
 
   // Placeholder variables
   const profileImageUrl = "https://i.imgur.com/pWPslub.png";
-  const name = "Firstname Lastname";
+  const name = "John Smith";
 
   return (
     <nav className="w-64 p-7">
@@ -51,7 +51,7 @@ const Navbar = () => {
           <li key={link.text} className="pt-1">
             <NavLink
               to={link.path}
-              className="p-1 flex items-center w-full font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
+              className="w-60 p-2 flex items-center w-full font-rubik text-lg rounded-md border-2 border-transparent opacity-50 hover:opacity-100 hover:border-gray-700 text-gray-700 ease-in-out duration-200"
             >
               {link.icon}
               {link.text}
