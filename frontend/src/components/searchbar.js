@@ -5,7 +5,9 @@ function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const categories = ["Academic", "Arts", "Athletic", "Cultural", "Political", "Religious", "Service", "Social", "Other"];
+  // const categories = ["Academic", "Arts", "Athletic", "Cultural", "Political", "Religious", "Service", "Social", "Other"];
+  const categories = ["Sports", "Academic", "Cultural", "Community Service", "Religious", "Science & Technology", "Arts", "Special Interest", "Student Government"]
+
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleSearch = async () => {

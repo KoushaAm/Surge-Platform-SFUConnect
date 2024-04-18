@@ -28,11 +28,12 @@ function App() {
         <Routes>
           <Route element={<PageLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<Error />} />
           </Route>
+
+          <Route path="/about" element={<About />} />
 
           <Route path="/app" element={<AppLayout />}>
             <Route path="/app/profile" element={<UserProfile />} />

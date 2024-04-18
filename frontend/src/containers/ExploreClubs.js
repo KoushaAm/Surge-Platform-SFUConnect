@@ -42,7 +42,8 @@ const ExploreClubs = () => {
       {loading && 
         <div class="flex justify-center items-center h-screen">
           <div class="rounded-full h-20 w-20 bg-orange-800 animate-ping"></div>
-        </div>}
+        </div>
+      }
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {searchResults.map((club) => (
           <Link

@@ -35,6 +35,7 @@ MongoClient.connect(URI, (error, client) => {
 
 // categories
 categories = ["Academic", "Arts", "Athletic", "Cultural", "Political", "Religious", "Service", "Social", "Other"]
+categories = ["Sports", "Academic", "Cultural", "Community Service", "Religious", "Science & Technology", "Arts", "Special Interest", "Student Government"]
 
 
 // search by category
